@@ -1,0 +1,32 @@
+parameters:
+  #~ Default secrets for the applications - must be overridden with a secrets yaml config file not committed in you app
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire:      true
+    autoconfigure: true
+    public:        false
+
+  #~ Application controllers
+  Application\Controller\Api\:
+    resource: '../../src/Controller/Api'
+    public: true # services called in ControllerMiddleware
+    calls:
+      - [ 'setRouter', [ '@router' ] ]
+      - [ 'setResponseFactory', [ '@response_factory' ] ]
+      - [ 'setRequestFactory', [ '@request_factory' ] ]
+      - [ 'setServerRequestFactory', [ '@server_request_factory' ] ]
+      - [ 'setStreamFactory', [ '@stream_factory' ] ]
+      - [ 'setUriFactory', [ '@uri_factory' ] ]
+
+  #~ Application controllers
+  Application\Domain\:
+    resource: '../../src/Domain'
+
+  #~ Date provider (time zone UTC & date time now UTC)
+  Lcobucci\Clock\SystemClock:
+    factory: [ 'Lcobucci\Clock\SystemClock', 'fromUTC' ]
+
+  Psr\Clock\ClockInterface:
+    alias: Lcobucci\Clock\SystemClock

@@ -1,0 +1,17 @@
+# For route with log-in needed, add following parameter in defaults: "authenticationRequired: true"
+# ===== HOME =====
+home:
+    path:       /
+    controller: Application\Controller\Api\Home\HomeController::index
+    methods:    [ GET ]
+
+# ===== HEALTH =====
+liveness:
+    path:       /liveness
+    controller: Application\Controller\Api\Health\HealthController::liveness
+    methods:    [ GET ]
+
+readiness:
+    path:       /readiness
+    controller: Application\Controller\Api\Health\HealthController::readiness
+    methods:    [ GET ]

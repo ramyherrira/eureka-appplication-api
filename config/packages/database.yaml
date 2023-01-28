@@ -1,0 +1,24 @@
+########################################################################################################################
+# /!\ Default database config file. It should be overridden when application is deployed
+########################################################################################################################
+parameters:
+  #~ Database credentials
+  app.secret.database.host:     'localhost'
+  app.secret.database.schema:   'schema'
+  app.secret.database.username: 'username'
+  app.secret.database.password: 'password'
+
+  # Common config database
+  app.database.common:
+    dsn:      'mysql:dbname=%app.secret.database.schema%;host=%app.secret.database.host%;charset=UTF8'
+    username: '%app.secret.database.username%'
+    password: '%app.secret.database.password%'
+    options:
+      !php/const \PDO::MYSQL_ATTR_INIT_COMMAND: "SET NAMES 'UTF8'"
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    public: false
+    autowire: true
+    autoconfigure: true

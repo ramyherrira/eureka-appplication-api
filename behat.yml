@@ -1,0 +1,35 @@
+default:
+    extensions:
+        emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+            name: html
+            renderer: Twig,Behat2
+            file_name: index
+            print_args: true
+            print_outp: true
+            loop_break: true
+
+    formatters:
+        pretty: true
+        html:
+            output_path: '%paths.base%/build/reports/behat'
+
+    suites:
+
+        application:
+            paths:
+                - "%paths.base%/features/features/application/"
+            contexts:
+                - Application\Behat\Context\Common\ClientApplicationContext
+                - Application\Behat\Context\Common\CommonResponseContext
+                - Application\Behat\Context\Common\ServerRequestContext
+                - Application\Behat\Context\Application\HealthContext
+                - Application\Behat\Context\Application\ApplicationContext
+
+#        another:
+#            paths:
+#                - "%paths.base%/features/features/another/"
+#            contexts:
+#                - Application\Behat\Context\Common\ClientApplicationContext
+#                - Application\Behat\Context\Common\CommonResponseContext
+#                - Application\Behat\Context\Common\ServerRequestContext
+#                - Application\Behat\Context\Another\AnotherContext

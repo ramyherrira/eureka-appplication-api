@@ -1,0 +1,4 @@
+# Services Yaml file
+parameters:
+    app.name:    'appname'
+    app.version: '1.0.0'
