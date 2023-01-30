@@ -1,2 +1,7 @@
 .idea/
 vendor/
+.phpunit.result.cache
+build/reports/phpunit/*.xml
+build/cs_eureka.cache
+build/reports/*
+var/cache/*

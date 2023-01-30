@@ -11,7 +11,11 @@ declare(strict_types=1);
 
 namespace Application\Controller\Common;
 
+use Application\Controller\Api\Artist\DemographicsController;
+use DateTime;
+use DateTimeInterface;
 use Eureka\Kernel\Http\Controller\Controller;
+use Eureka\Kernel\Http\Exception\HttpBadRequestException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -99,5 +103,40 @@ abstract class AbstractApiController extends Controller
         }
 
         return $error;
+    }
+
+    /**
+     * @param string $message
+     * @param ServerRequestInterface $request
+     * @return void
+     */
+    protected function log(string $message, ServerRequestInterface $request): void
+    {
+        $this->getLogger()->info($message, [
+            'uri' => $request->getUri()->getPath(),
+            'query' => $request->getQueryParams(),
+            'body' => $request->getBody(),
+        ]);
+    }
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param string $param
+     * @return DateTimeInterface|null
+     * @throws HttpBadRequestException
+     */
+    protected function parseDateTime(ServerRequestInterface $request, string $param): ?DateTimeInterface
+    {
+        $date = $request->getQueryParams()[$param] ?? null;
+
+        if (!$date) {
+            return null;
+        }
+
+        if (!$dateTime = DateTime::createFromFormat('Y-m-d', $date)) {
+            throw new HttpBadRequestException('Invalid data: date values are invalid.');
+        }
+
+        return $dateTime;
     }
 }

@@ -8,6 +8,11 @@ home:
         rateLimiterQuota: 5
         rateLimiterTTL:   10
 
+# ===== ARTIST =====
+artist_demographics:
+    path:       /artists/{id}/demographics
+    controller: Application\Controller\Api\Artist\DemographicsController::artistDemographics
+    methods:    [ GET ]
 
 # ===== HEALTH =====
 liveness:

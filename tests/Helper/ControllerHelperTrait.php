@@ -99,4 +99,19 @@ trait ControllerHelperTrait
 
         return $body->getContents();
     }
+
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param array $value
+     * @return void
+     */
+    public function assertJsonEquals(\Psr\Http\Message\ResponseInterface $response, array $value): void
+    {
+        $json = $this->getJsonStringFromResponse($response);
+
+        $this->assertEquals(
+            json_encode(['data' => $value]),
+            $json
+        );
+    }
 }

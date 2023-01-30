@@ -5,6 +5,12 @@ home:
     controller: Application\Controller\Api\Home\HomeController::index
     methods:    [ GET ]
 
+# ===== ARTIST =====
+artist_demographics:
+    path:       /artists/{id}/demographics
+    controller: Application\Controller\Api\Artist\DemographicsController::artistDemographics
+    methods:    [ GET ]
+
 # ===== HEALTH =====
 liveness:
     path:       /liveness
